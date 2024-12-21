@@ -1,0 +1,41 @@
+#mongo
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:
+  # count of pods
+  replicas: 1
+  selector: 
+    # more than 1  pods
+    matchLabels:
+      app: mongo
+  template:
+   #เราจะ deploy อะไร
+    metadata:
+      name: mongo-pod
+      labels:                   
+        app: mongo
+    spec:
+      containers:                
+        - name: mongo
+          image: mongo
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  type: ClusterIP
+  selector:
+    # from deployment
+    app: mongo
+  ports:
+    - port: 27017
+      # ตัวอย่าง: Node.js 3000 หรือ 80 สำหรับ .NET
+      targetPort: 27017
+
+
+
+
