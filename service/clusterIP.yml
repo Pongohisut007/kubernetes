@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-service
+spec:
+  type: ClusterIP       # นี่คือค่า default ถ้าไม่ใส่ก็เป็น ClusterIP
+  selector:
+    app: client
+  ports:
+    - port: 3000        # Port ที่ Service เปิดให้ใน cluster
+      targetPort: 3000  # Port ที่ Pod ฟังอยู่
